@@ -1,0 +1,52 @@
+# =====================================================
+# BakeryQ Backend — .gitignore
+# =====================================================
+
+# ── Maven build outputs ───────────────────────────
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ── IDE files ─────────────────────────────────────
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Spring Tool Suite / Eclipse
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+bin/
+
+# VS Code
+.vscode/
+
+# ── Secrets — NEVER COMMIT THESE ─────────────────
+*.env
+.env
+.env.local
+.env.production
+application-secrets.properties
+secrets.properties
+
+# ── OS files ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────
+*.log
+logs/
+spring.log
+
+# ── Test coverage ─────────────────────────────────
+.jacoco/
+jacoco.exec
+
+# ── Docker ────────────────────────────────────────
+docker-compose.override.yml

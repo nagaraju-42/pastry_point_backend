@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmed</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 20px auto; background: #fff; border-radius: 8px; overflow: hidden; }
+    .header { background: #2d6a4f; padding: 24px; text-align: center; }
+    .header h1 { color: #fff; margin: 0; font-size: 24px; }
+    .header p { color: #b7e4c7; margin: 4px 0 0; }
+    .body { padding: 24px; }
+    .order-badge { background: #d8f3dc; border: 1px solid #95d5b2; border-radius: 6px;
+                   padding: 12px 16px; margin-bottom: 20px; text-align: center; }
+    .order-badge .num { font-size: 20px; font-weight: bold; color: #1b4332; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #f0f0f0; padding: 10px; text-align: left; font-size: 13px; }
+    td { padding: 9px 10px; border-bottom: 1px solid #eee; font-size: 13px; }
+    td.right { text-align: right; }
+    .totals td { font-size: 14px; }
+    .totals .grand-total td { font-weight: bold; font-size: 16px; color: #1b4332; border-top: 2px solid #2d6a4f; }
+    .footer { background: #f8f8f8; padding: 16px; text-align: center; font-size: 12px; color: #888; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1 th:text="${shopName}">BakeryQ 🥐</h1>
+    <p>Order Confirmed ✅</p>
+  </div>
+
+  <div class="body">
+    <p>Hi <strong th:text="${order.user.name}">Customer</strong>,</p>
+    <p>Your order has been placed successfully and payment received. We'll start preparing it right away!</p>
+
+    <div class="order-badge">
+      <div>Order Number</div>
+      <div class="num" th:text="${order.orderNumber}">BQ-20240101-0001</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th class="right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${order.items}">
+          <td th:text="${item.itemName}">Item Name</td>
+          <td th:text="${item.quantity}">1</td>
+          <td class="right">₹<span th:text="${item.lineTotal}">0.00</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="totals">
+      <tr>
+        <td>Subtotal</td>
+        <td class="right">₹<span th:text="${order.subtotal}">0.00</span></td>
+      </tr>
+      <tr>
+        <td>Delivery Charge</td>
+        <td class="right">₹<span th:text="${order.deliveryCharge}">0.00</span></td>
+      </tr>
+      <tr th:if="${order.discount != null and order.discount > 0}">
+        <td style="color:green">Loyalty Discount</td>
+        <td class="right" style="color:green">-₹<span th:text="${order.discount}">0.00</span></td>
+      </tr>
+      <tr class="grand-total">
+        <td>Total Paid</td>
+        <td class="right">₹<span th:text="${order.totalAmount}">0.00</span></td>
+      </tr>
+    </table>
+
+    <p>
+      <strong>Order Type:</strong>
+      <span th:text="${order.orderType}">PICKUP</span>
+    </p>
+    <p th:if="${order.deliveryAddress != null}">
+      <strong>Delivery Address:</strong>
+      <span th:text="${order.deliveryAddress}"></span>
+    </p>
+    <p>
+      <strong>Estimated Wait:</strong>
+      <span th:text="${order.estimatedWaitMinutes}">15</span> minutes
+    </p>
+    <p style="color:#555; font-size:13px;">Your PDF receipt is attached to this email.</p>
+  </div>
+
+  <div class="footer">
+    Thank you for choosing <strong th:text="${shopName}">BakeryQ</strong>! 🥐<br/>
+    We'll notify you when your order is ready.
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Your Order is Ready!</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    .container { max-width: 500px; margin: 20px auto; background: #fff; border-radius: 8px; overflow: hidden; }
+    .header { background: #f4a261; padding: 24px; text-align: center; }
+    .header h1 { color: #fff; margin: 0; font-size: 26px; }
+    .body { padding: 28px; text-align: center; }
+    .icon { font-size: 60px; margin-bottom: 8px; }
+    .order-num { font-size: 22px; font-weight: bold; color: #1b4332; margin: 12px 0; }
+    .cta { background: #2d6a4f; color: #fff; padding: 12px 28px;
+           border-radius: 6px; text-decoration: none; display: inline-block;
+           margin-top: 16px; font-size: 15px; }
+    .footer { background: #f8f8f8; padding: 14px; text-align: center; font-size: 12px; color: #888; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Your Order is Ready! 🔔</h1>
+  </div>
+
+  <div class="body">
+    <div class="icon">🥐</div>
+    <p>Hi <strong th:text="${order.user.name}">Customer</strong>,</p>
+    <p>Great news! Your order is ready.</p>
+    <div class="order-num" th:text="${order.orderNumber}">BQ-20240101-0001</div>
+    <p th:if="${order.orderType.name() == 'PICKUP'}">
+      Please come to the <strong>counter</strong> to collect your order.
+    </p>
+    <p th:if="${order.orderType.name() == 'DELIVERY'}">
+      Your order is on its way to you!
+    </p>
+  </div>
+
+  <div class="footer">
+    Thank you for choosing <strong th:text="${shopName}">BakeryQ</strong>! 🥐
+  </div>
+
+</div>
+</body>
+</html>
