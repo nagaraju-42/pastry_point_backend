@@ -32,11 +32,4 @@ EXPOSE 10000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/api/auth/health || exit 1
 
-# ✅ FIX: bind Spring Boot to Render port
-ENTRYPOINT ["sh", "-c", "java \
-  -Dspring.profiles.active=prod \
-  -Dserver.port=$PORT \
-  -Djava.security.egd=file:/dev/./urandom \
-  -XX:+UseContainerSupport \
-  -XX:MaxRAMPercentage=75.0 \
-  -jar app.jar"]
+CMD ["sh", "-c", "java -Dspring.profiles.active=prod -Dserver.port=$PORT -jar app.jar"]
